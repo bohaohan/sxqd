@@ -17,6 +17,48 @@
     <script src="js/jquery.min.js"></script>
 
     <!--script-->
+    <style type="text/css">
+        .product-thumbnail {
+            width: 50px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .product-thumbnail img {
+            width: 50px;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+        }
+        .shopping-cart-item h6 {
+            font-size: 14px;
+            font-weight: 400;
+            margin: 0;
+            display: inline-block;
+        }
+        table td, table th {
+            border: 1px solid #ecedf1;
+            padding: 12px 20px;
+            text-align: left;
+            transition: background 0.3s;
+            -webkit-transition: background 0.3s;
+            -moz-transition: background 0.3s;
+        }
+        .contact_right {
+            margin-top: 28px;
+        }
+        .numeric-input-holder {
+            width: 115px;
+            display: block;
+            position: relative;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-transform: translateZ(0px);
+        }
+    </style>
 </head>
 <body> 
 	<!--header-->
@@ -81,38 +123,110 @@
 	</div>
 	<!---->
 	<div class="container">
-		
+
 			<!---->
-		 <div class="main"> 
-         <div class="reservation_top">          
-            	<div class=" contact_right">
-            		<h3>联系我们</h3>
-            		<div class="contact-form">
-							<form method="post" action="contact-post.html">
-								<input type="text" class="textbox" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-								<input type="text" class="textbox" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
-								<textarea value="Message" onfocus="this.value= '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
-								<input type="submit" value="Send">
-								<div class="clearfix"> </div>
-							</form>
-							<address class="address">
-                    <p>9870 St Vincent Place, <br>Glasgow, DC 45 Fr 45.</p>
-                    <dl>
-                        <dt> </dt>
-                        <dd>Freephone:<span> +1 800 254 2478</span></dd>
-                        <dd>Telephone:<span> +1 800 547 5478</span></dd>
-                        <dd>FAX: <span>+1 800 658 5784</span></dd>
-                        <dd>E-mail:&nbsp; <a href="mailto@vintage.com">info(at)bigshop.com</a></dd>
-                    </dl>
-                </address>
-						</div>
-            	</div>
+		<div class="main">
+            <div class="reservation_top">
+                <div class=" contact_right">
+                    <table class="table table-hover">
+
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+
+                        <tr>
+                            <td class="shopping-cart-item">
+                                <div class="product-thumbnail">
+                                    <img src="images/pic11.jpg" alt="">
+                                </div>
+                                <h6><a href="#">Woo Ninja</a></h6>
+                            </td>
+                            <td class="price">20</td>
+                            <td><input class="numeric-input" type="text" value="1"></td>
+                            <td class="total"><strong>20</strong></td>
+                            <td><a href="#" style="color: red;">x</a></td>
+                        </tr>
+
+                        <tr>
+                            <td class="shopping-cart-item">
+                                <div class="product-thumbnail">
+                                    <img src="images/pic11.jpg" alt="">
+                                </div>
+                                <h6><a href="#">Happy Ninja</a></h6>
+                            </td>
+                            <td class="price">35</td>
+                            <td><input class="numeric-input" type="text" value="1"></td>
+                            <td class="total"><strong>35</strong></td>
+                            <td><a href="#" style="color: red;">x</a></td>
+                        </tr>
+
+                        <tr>
+                            <td class="shopping-cart-item">
+                                <div class="product-thumbnail">
+                                    <img src="images/pic11.jpg" alt="">
+                                </div>
+                                <h6><a href="#">Woo Album #2</a></h6>
+                            </td>
+                            <td class="price">9</td>
+                            <td><input class="numeric-input" type="text" value="1"></td>
+                            <td class="total"><strong>9</strong></td>
+                            <td><a href="#" style="color: red;">x</a></td>
+                        </tr>
+                        <tr>
+                            <td class="shopping-cart-item">
+
+                            </td>
+                            <td></td>
+                            <td><b>total</b></td>
+                            <td class="t-total"><strong>9</strong></td>
+                            <td></td>
+                        </tr>
+                           <script type="text/javascript">
+                               function sum(){
+                                   var sum = 0;
+                                   $.each($(".total"),function(){
+                                       var i = parseInt($(this).find("strong").text());
+                                       if(!isNaN(i)) sum+=i;
+                                   })
+                                   $(".t-total").find("strong").text(sum);
+                               }
+                               $(document).ready(function(){
+                                   sum();
+                                   $.each($(".numeric-input"),function(){
+                                       $(this).on("input", function(){
+                                           var q = parseInt($(this).val());
+                                           if(!isNaN(q)){
+                                               var price = parseInt($(this).parent().prev().text());
+                                               console.log(q);
+                                               console.log(price);
+                                               var c = q*price;
+                                               $(this).parent().next().find("strong").text(c);
+                                               sum();
+                                           }
+                                       });
+                                   })
+                               })
+                           </script>
+                        <tr>
+                            <td class="apply-coupon">
+                            </td>
+                            <td colspan="4" class="align-right">
+                                <button class="btn btn-info">Proceed to checkout</button>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
             </div>
-           </div>
-		   <div class="sub-cate">
-				<div class=" top-nav rsidebar span_1_of_left">
-					<h3 class="cate">分类</h3>
-		 <ul class="menu">
+        </div>
+		<div class="sub-cate">
+		<div class=" top-nav rsidebar span_1_of_left">
+	        <h3 class="cate">分类</h3>
+		<ul class="menu">
 		<li class="item1"><a href="#">Curabitur sapien<img class="arrow-img" src="images/arrow1.png" alt=""/> </a>
 			<ul class="cute">
 				<li class="subitem1"><a href="product.html">Cute Kittens </a></li>
@@ -158,9 +272,9 @@
 				<li class="menu-kid-left"><a href="contact.html">Contact us</a></li>
 			</ul>
 		
-	</ul>
-					</div>
-				<!--initiate accordion-->
+	    </ul>
+		</div>
+		<!--initiate accordion-->
 		<script type="text/javascript">
 			$(function() {
 			    var menu_ul = $('.menu > li > ul'),
